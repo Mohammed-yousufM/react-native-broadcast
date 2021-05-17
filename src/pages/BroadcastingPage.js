@@ -52,7 +52,11 @@ const BroadcastingPage = ({outputURL, setOutputURL}) => {
 
     useEffect(()=>{
         return(()=>{
-            endLive();
+            if(nodeCamRef.current){
+                nodeCamRef?.current.stop()
+               } else{
+                   console.log('stream already ended')
+               }
         })
     },[])
 

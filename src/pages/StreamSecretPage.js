@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import { StyleSheet, Text, TextInput, View, Pressable } from 'react-native'
 import BroadcastingPage from './BroadcastingPage'
 
@@ -14,6 +14,12 @@ const StreamSecretPage = () => {
             alert('Fill details');
         }        
     }
+
+    // useEffect(()=>{
+    //     setIngestURL('');
+    //     setStreamKey('');
+    //     setOutputURL('');
+    // },[])
 
     const secretComp = ()=>{
         return (
