@@ -4,25 +4,18 @@ import {PermissionsAndroid, SafeAreaView, Text} from 'react-native';
 const AndroidPermissions = ({permissionStat, setPermissionStat})=>{
     const requestCameraPermission = async () => {
         try {
-          const granted = await PermissionsAndroid.request(
+          const result = await PermissionsAndroid.requestMultiple([
             PermissionsAndroid.PERMISSIONS.CAMERA,
-            {
-              title: "Together Broadcast App Camera Permission",
-              message:
-                "Together Broadcast App needs access to your camera " +
-                "so you can take awesome video stream.",
-              buttonNeutral: "Ask Me Later",
-              buttonNegative: "Cancel",
-              buttonPositive: "OK"
-            }
-          );
-          if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+            PermissionsAndroid.PERMISSIONS.RECORD_AUDIO
+          ]);
+          if ('granted' === result["android.permission.CAMERA"] && 'granted'===result["android.permission.RECORD_AUDIO"]) {
             setPermissionStat(true)
-            console.log("You can use the camera", granted);
+            console.log("You can use the camera", result);
           } else {
             setPermissionStat(false)
             console.log("Camera permission denied");
           }
+          // console.log(granted)
         } catch (err) {
           setPermissionStat(false)
           console.warn(err);
@@ -38,3 +31,17 @@ const AndroidPermissions = ({permissionStat, setPermissionStat})=>{
 };
 
 export default AndroidPermissions;
+
+
+// const granted = await PermissionsAndroid.requestMultiple(
+//   PermissionsAndroid.PERMISSIONS.CAMERA,
+//   {
+//     title: "Together Broadcast App Camera Permission",
+//     message:
+//       "Together Broadcast App needs access to your camera " +
+//       "so you can take awesome video stream.",
+//     buttonNeutral: "Ask Me Later",
+//     buttonNegative: "Cancel",
+//     buttonPositive: "OK"
+//   }
+// );
